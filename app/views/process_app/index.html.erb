@@ -1,0 +1,8 @@
+<h1>List of available Process Apps and Toolkits</h1>
+<p>Select to display available snapshots.</p>
+<table border="1" style="width:900px">
+    <% @process_apps.each do |processApp| %>
+        <tr></tr><td><a href="/process_app/<%= processApp.id %>"><%= processApp.name %></a></td>
+        <td><%= processApp.guid%></td></tr>
+    <% end %>
+</table>

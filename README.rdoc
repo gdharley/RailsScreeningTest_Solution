@@ -1,0 +1,65 @@
+== Welcome to BP3s Rails Screening Problem
+
+Congratulations!  If you are reading this odds are in the process of
+applying for a job with BP3 as a developer with Ruby on Rails experience.
+This problem will allow us to better assess your skills.
+
+== Getting Started
+
+Pull down this code and get your environment working.  This solution does use
+active record, but it is using the SQLite database so it should be easy to get
+up and running.  While we could tell you all the steps to do that, getting your
+environment running is the first step of this work.
+
+The "problem" was generated using Ruby 2 and Rails 3, so I would suggest you mimic this
+environment to avoid version incompatibilities.
+
+==  Populating the database
+
+The problem requires parsing of a set of database tables (sqlite) whose schema you should create
+using the folowing command:
+
+> rake db:migrate
+
+Once you have your schema created, you will need to bring up the rails console
+and issue the following command -
+
+    ParseJson.new.parse_standard_payload
+
+This will read the data in the "seed data" folder and populate the base data into
+your database schema.
+
+From this point, it is up to you whether you use the Rails conventions to access the database,
+or use raw Ruby script to access the ActiveRecord data.
+
+== Problem Statement
+
+This solution currently consists of only a set of ActiveRecord models.  The basic
+Models consist of Process Apps, Toolkits, Snapshots, and Dependencies.  The goal
+of the problem is not to edit this data in any way, but to find if a certain pattern
+exists in the data.
+
+The relationships are as follows -
+
+-  Process Apps and Toolkits are essentially the same thing.
+-  Process Apps can have many snapshots.
+-  A Process App snapshot can depend on multiple Toolkit Snapshots.
+-  A Toolkit Snapshot can depend on multiple (other) Toolkit Snapshots.
+-  No single Process App or Toolkit can depend on 2 different Snapshots of the same
+Toolkit.
+-  Circular dependencies are legal.  For example the following is legal A3 depends on B3
+B3 depends on C3, C3 Depends on A3 (where the letter is the Toolkit Name and the number is a
+snapshot).  However if C3 Depends on A2 (A different Snapshot of "A") then that is
+what is known as a "Spiral" and is illegal.
+
+Your job is to write the code to analyze the Process Apps and detect if any of them
+contain any illegal dependencies, and if they do, what dependencies are in conflict.
+
+== Success Criteria
+
+- Level 1: Be able to articulate that a given Snapshot has illegal dependencies.
+- Level 2: Complete "Level 1" and be able to identify the relationships causing the error.
+- Level 3: Complete "Level 1" and "Level 2" as well as a "Dashboard" to present the results.
+
+
+*Good Luck!*
