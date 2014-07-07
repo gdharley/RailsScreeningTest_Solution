@@ -1,6 +1,10 @@
 <h1>Snapshots for Process App/Toolkit <%= @process_app.name %></h1>
 <p>Select to display snapshot dependencies</p>
 <table border="1" style="width:900px">
+    <tr>
+        <th>Snapshot Name</th>
+        <th>Snapshot GUID</th>
+    </tr>
     <% @process_app.snapshots.each do |snapshot| %>
         <tr>
             <td><a href="/process_app/<%= @process_app.id %>/snapshot/<%= snapshot.id %>"><%= snapshot.name %></a></td>

@@ -1,8 +1,15 @@
 <h1>Dependencies:</h1>
-<p>Dependencies for Process App/Toolkit: <%= @processApp.name %> (<%= @snapshot.name %>)</p>
+<p>Dependencies for Process App/Toolkit: <b><%= @processApp.name %> (<%= @snapshot.name %>)</b></p>
 
 <table border="1" style="width:900px">
-    <% @foo.each do |snapshot| %>
+    <tr>
+        <th>Toolkit Name</th>
+        <th>Toolkit ID</th>
+        <th>Snapshot ID</th>
+        <th>Snapshot Name</th>
+        <th>Snapshot GUID</th>
+    </tr>
+    <% @deps.each do |snapshot| %>
         <tr>
             <td><%=ProcessApp.find(snapshot.process_app_id).name%></td>
             <td><%=ProcessApp.find(snapshot.process_app_id).id%></td>
@@ -12,6 +19,52 @@
         </tr>
     <% end %>
 </table>
+
+<% if @spiral.size > 0 %>
+<p>The following table lists "spiral" dependencies which are considered illegal</p>
+
+<table border="1" style="width:900px">
+    <tr>
+        <th>Toolkit Name</th>
+        <th>Toolkit ID</th>
+        <th>Snapshot ID</th>
+        <th>Snapshot Name</th>
+        <th>Snapshot GUID</th>
+    </tr>
+    <% @spiral.each do |snapshot| %>
+        <tr>
+            <td><%=ProcessApp.find(snapshot.process_app_id).name%></td>
+            <td><%=ProcessApp.find(snapshot.process_app_id).id%></td>
+            <td><%= snapshot.id %></td>
+            <td><%= snapshot.name %></td>
+            <td><%= snapshot.guid %></td>
+        </tr>
+    <% end %>
+</table>
+<% end %>
+
+<% if @cyclic.size > 0 %>
+<p>The following table lists "cyclic" dependencies which could be potentially harmful and should be investigated</p>
+
+<table border="1" style="width:900px">
+    <tr>
+        <th>Toolkit Name</th>
+        <th>Toolkit ID</th>
+        <th>Snapshot ID</th>
+        <th>Snapshot Name</th>
+        <th>Snapshot GUID</th>
+    </tr>
+    <% @cyclic.each do |snapshot| %>
+        <tr>
+            <td><%=ProcessApp.find(snapshot.process_app_id).name%></td>
+            <td><%=ProcessApp.find(snapshot.process_app_id).id%></td>
+            <td><%= snapshot.id %></td>
+            <td><%= snapshot.name %></td>
+            <td><%= snapshot.guid %></td>
+        </tr>
+    <% end %>
+</table>
+<% end %>
 <p>
 <a href="/process_apps">Home</a>
 </p>
